@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <GVL Name="GVL" Id="{bde25adf-eec3-434c-8133-e5b7a9baf7eb}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+fbPLCDBRead    	: FB_PLCDBReadEvt (sNetID := '', tTimeout := T#5S);
+fbPLCDBWrite    :  FB_PLCDBWriteEvt(sNetID := '', tTimeout := T#5S);
+END_VAR
+
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

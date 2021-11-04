@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Table>
+  <ID>2</ID>
+  <Name>DBTable</Name>
+  <TableName />
+  <FailOverTableName />
+  <TableMode>STANDARD</TableMode>
+  <AdditionalSettings />
+  <Columns />
+</Table>

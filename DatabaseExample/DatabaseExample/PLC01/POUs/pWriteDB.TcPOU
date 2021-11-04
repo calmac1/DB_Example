@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="pWriteDB" Id="{8ec62fe7-156a-4994-afa8-219584cbd1cb}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM pWriteDB
+VAR
+	//fbPLCDBWrite    :  FB_PLCDBWriteEvt(sNetID := '', tTimeout := T#5S);
+    myRecord        :  ST_Record;
+    ColumnNames     :  ARRAY[0..4] OF STRING(50);
+    
+    systime         :  GETSYSTEMTIME;
+    currentTime     :  T_FILETIME;
+    tcMessage       :  I_TcMessage;
+	
+	nState			: INT;
+	
+	nSensor1		: LREAL;
+	nSensor2		: LREAL;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// set Values
+systime(timeLoDw => currentTime.dwLowDateTime, timeHiDW => currentTime.dwHighDateTime );
+myRecord.Timestamp := FILETIME_TO_DT(currentTime);
+myRecord.Name       := 'MyStructVal';
+myRecord.nSensor1    := nSensor1;
+myRecord.nSensor2    := nSensor2;
+
+// set columnnames
+ColumnNames[0] := 'ID';
+ColumnNames[1] := 'Timestamp';
+ColumnNames[2] := 'Name';
+ColumnNames[3] := 'nSensor1';
+ColumnNames[4] := 'nSensor2';
+
+// Call Functionblock
+IF GVL.fbPLCDBWrite.WriteStruct(
+    hDBID:= 1, 
+    sTableName:= 'myTable_Struct', 
+    pRecord:= ADR(myRecord), 
+    cbRecord:= SIZEOF(myRecord), 
+    pColumnNames:= ADR(ColumnNames) , 
+    cbColumnNames:= SIZEOF(ColumnNames))
+THEN
+    IF GVL.fbPLCDBWrite.bError THEN
+        tcMessage := GVL.fbPLCDBWrite.ipTcResult;
+        nState := 255; 
+    ELSE
+        nState := 0;
+    END_IF
+END_IF]]></ST>
+    </Implementation>
+    <Method Name="WriteStruct" Id="{d46b787f-f73c-4fc0-9d7a-5dd02df05fb2}">
+      <Declaration><![CDATA[METHOD WriteStruct : BOOL
+VAR_INPUT
+	hDBID: UDINT;
+    sTableName: T_MaxString;
+    pRecord: POINTER TO BYTE;
+    cbRecord: UDINT;
+    pColumnNames: POINTER TO ARRAY [0..MAX_DBCOLUMNS] OF STRING(50);
+    cbColumnNames: UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="pWriteDB">
+      <LineId Id="13" Count="28" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="pWriteDB.WriteStruct">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

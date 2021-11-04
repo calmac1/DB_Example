@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<AutoLogGroup>
+  <ID>2</ID>
+  <Name>MySQL_Read</Name>
+  <WriteDirection>DeviceAsTarget</WriteDirection>
+  <WriteMode>UPDATE</WriteMode>
+  <StartMode>AutoStart</StartMode>
+  <LogMode>cyclic</LogMode>
+  <RingBuffParameter>0</RingBuffParameter>
+  <RingBuffParameterUnit>Seconds</RingBuffParameterUnit>
+  <CycleTime>500</CycleTime>
+  <DBID>1</DBID>
+  <DBTableID>2</DBTableID>
+  <FailOverDBTableID>0</FailOverDBTableID>
+  <ADSDevID>2</ADSDevID>
+  <SymbolListID>2</SymbolListID>
+  <Temporary>False</Temporary>
+  <Disabled>False</Disabled>
+</AutoLogGroup>

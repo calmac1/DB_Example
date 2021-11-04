@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="pReadDB" Id="{7a1d021b-736f-4488-b473-bc6f1eddc0f5}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM pReadDB
+VAR
+	//fbPLCDBRead    	: FB_PLCDBReadEvt (sNetID := '', tTimeout := T#5S);
+    myCustomStruct 	: ST_Record; //where the data will be stored
+    tcMessage      	: I_TcMessage; 
+	nState			: INT;
+	ColumnNames 	: ARRAY [0..4] OF STRING(50); //table column names.
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Reads a struct from database.
+
+// set columnnames
+ColumnNames[0] := 'ID';
+ColumnNames[1] := 'Timestamp';
+ColumnNames[2] := 'Name';
+ColumnNames[3] := 'nSensor1';
+ColumnNames[4] := 'nSensor2';
+
+IF GVL.fbPLCDBRead.ReadStruct(
+    hDBID:= 1, 
+    sTableName:= 'MyTable_Struct', //name of the table to read from.
+    pColumnNames:= ADR(ColumnNames), 
+    cbColumnNames:= SIZEOF(ColumnNames), 
+    sOrderByColumn:= ColumnNames[0], 
+    eOrderType:= E_OrderType.ASC, 
+    nStartIndex:= 3, //get the data corresponding to ID 3 in the database. 
+    nRecordCount:= 1, //how many records to get.
+    pData:= ADR(myCustomStruct), 
+    cbData:= SIZEOF(myCustomStruct))
+THEN
+    IF GVL.fbPLCDBRead.bError THEN
+        tcMessage:= GVL.fbPLCDBRead.ipTcResult;
+        nState := 255; 
+    ELSE
+        nState := 0;
+    END_IF
+END_IF
+
+
+//]]></ST>
+    </Implementation>
+    <Method Name="ReadStruct" Id="{74a70f19-68e8-4b75-839a-c74e73d989cd}">
+      <Declaration><![CDATA[METHOD ReadStruct : BOOL
+VAR_INPUT
+   hDBID: UDINT;
+    sTableName: T_MaxString;
+    pColumnNames: POINTER TO ARRAY [0..MAX_DBCOLUMNS] OF STRING(50);
+    cbColumnNames: UDINT;
+    sOrderByColumn: STRING(50);
+  //  eOrderType: E_OrderType := E_OrderType.eOrder_ASC;
+  	eOrderType : E_OrderType := E_OrderType.ASC;
+    nStartIndex: UDINT;
+    nRecordCount: UDINT;
+    pData: POINTER TO BYTE;
+    cbData: UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="pReadDB">
+      <LineId Id="38" Count="0" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="12" Count="25" />
+      <LineId Id="42" Count="1" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="pReadDB.ReadStruct">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

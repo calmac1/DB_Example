@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://www.plcopen.org/xml/tc6_0200">
+  <fileHeader companyName="Beckhoff Automation GmbH" productName="TF6420 Database Server Query Analyser" productVersion="1.0.0.0" creationDateTime="2021-11-04T11:13:41" />
+  <contentHeader name="Untitled1" modificationDateTime="2021-11-04T11:13:41">
+    <coordinateInfo>
+      <fbd>
+        <scaling x="1" y="1" />
+      </fbd>
+      <ld>
+        <scaling x="1" y="1" />
+      </ld>
+      <sfc>
+        <scaling x="1" y="1" />
+      </sfc>
+    </coordinateInfo>
+    <addData>
+      <data name="http://www.3s-software.com/plcopenxml/projectinformation" handleUnknown="implementation">
+        <ProjectInformation />
+      </data>
+    </addData>
+  </contentHeader>
+  <types>
+    <dataTypes>
+      <dataType name="ST_Record">
+        <baseType>
+          <struct>
+            <variable name="ID">
+              <type>
+                <LINT />
+              </type>
+            </variable>
+            <variable name="Timestamp">
+              <type>
+                <DT />
+              </type>
+            </variable>
+            <variable name="Name">
+              <type>
+                <string length="80" />
+              </type>
+            </variable>
+            <variable name="nSensor1">
+              <type>
+                <LREAL />
+              </type>
+            </variable>
+            <variable name="nSensor2">
+              <type>
+                <LREAL />
+              </type>
+            </variable>
+          </struct>
+        </baseType>
+        <addData />
+      </dataType>
+    </dataTypes>
+    <pous />
+  </types>
+  <instances>
+    <configurations />
+  </instances>
+  <addData>
+    <data name="http://www.3s-software.com/plcopenxml/projectstructure" handleUnknown="discard">
+      <ProjectStructure>
+        <Object Name="ST_Record" />
+      </ProjectStructure>
+    </data>
+  </addData>
+</project>

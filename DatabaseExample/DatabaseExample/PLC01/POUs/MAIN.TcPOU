@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="MAIN" Id="{a9a1e98d-05c8-4d49-a39c-a97cbfea2453}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+
+	nState: INT;
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+(*Setup a database  -  In that database make a table using this command in the Sql Query Editor...
+
+CREATE TABLE `MyTable_Struct` 
+(
+	`ID` BIGINT NOT NULL AUTO_INCREMENT, 
+	 `Timestamp` DATETIME, 
+	 `Name` VARCHAR(80), 
+	 `nSensor1` DOUBLE, 
+	 `nSensor2` DOUBLE,
+
+	 PRIMARY KEY (ID)
+)
+
+*)
+
+CASE nState OF
+	
+0: //Idle
+
+1: //DB write
+	pWriteDB();
+	IF NOT GVL.fbPLCDBWrite.bBusy THEN
+		
+		IF NOT GVL.fbPLCDBWrite.bError THEN
+			nState := 2;
+			ELSE
+			nState := 3;
+		END_IF;
+	END_IF
+	
+2: //DB read
+	pReadDB();
+	IF NOT GVL.fbPLCDBRead.bBusy  THEN
+
+		IF NOT GVL.fbPLCDBRead.bError THEN
+			nState := 0;
+			ELSE
+			nState := 3;
+		END_IF;
+	END_IF;
+	
+3: //Error state
+
+
+END_CASE
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="210" Count="1" />
+      <LineId Id="215" Count="0" />
+      <LineId Id="218" Count="8" />
+      <LineId Id="216" Count="1" />
+      <LineId Id="214" Count="0" />
+      <LineId Id="231" Count="0" />
+      <LineId Id="229" Count="0" />
+      <LineId Id="232" Count="0" />
+      <LineId Id="235" Count="0" />
+      <LineId Id="237" Count="0" />
+      <LineId Id="236" Count="0" />
+      <LineId Id="239" Count="0" />
+      <LineId Id="246" Count="0" />
+      <LineId Id="293" Count="0" />
+      <LineId Id="261" Count="0" />
+      <LineId Id="243" Count="0" />
+      <LineId Id="257" Count="1" />
+      <LineId Id="247" Count="0" />
+      <LineId Id="260" Count="0" />
+      <LineId Id="259" Count="0" />
+      <LineId Id="238" Count="0" />
+      <LineId Id="240" Count="0" />
+      <LineId Id="250" Count="0" />
+      <LineId Id="266" Count="0" />
+      <LineId Id="262" Count="0" />
+      <LineId Id="244" Count="0" />
+      <LineId Id="263" Count="1" />
+      <LineId Id="251" Count="0" />
+      <LineId Id="265" Count="0" />
+      <LineId Id="272" Count="0" />
+      <LineId Id="252" Count="0" />
+      <LineId Id="285" Count="0" />
+      <LineId Id="234" Count="0" />
+      <LineId Id="233" Count="0" />
+      <LineId Id="201" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

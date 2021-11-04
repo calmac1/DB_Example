@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<SymbolList>
+  <ID>1</ID>
+  <Name>Symbols</Name>
+  <Symbols>
+    <Symbol>
+      <ID>1</ID>
+      <Name>GVL.iVar1</Name>
+      <AllocationName>iVar1</AllocationName>
+      <DataType>INT</DataType>
+      <BitSize>16</BitSize>
+      <IndexGroup>0</IndexGroup>
+      <IndexOffset>0</IndexOffset>
+    </Symbol>
+    <Symbol>
+      <ID>2</ID>
+      <Name>GVL.iVar2</Name>
+      <AllocationName>iVar2</AllocationName>
+      <DataType>INT</DataType>
+      <BitSize>16</BitSize>
+      <IndexGroup>0</IndexGroup>
+      <IndexOffset>0</IndexOffset>
+    </Symbol>
+    <Symbol>
+      <ID>3</ID>
+      <Name>GVL.iVar3</Name>
+      <AllocationName>iVar3</AllocationName>
+      <DataType>INT</DataType>
+      <BitSize>16</BitSize>
+      <IndexGroup>0</IndexGroup>
+      <IndexOffset>0</IndexOffset>
+    </Symbol>
+  </Symbols>
+</SymbolList>
